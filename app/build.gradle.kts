@@ -19,14 +19,9 @@ android {
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
+
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -50,13 +45,13 @@ dependencies {
     implementation(Dependencies.ANDROIDX_MATERIAL3)
     implementation(platform(libs.androidx.compose.bom))
 
-    testImplementation(libs.junit)
+    testImplementation(TestDependencies.ANDROIDX_JUNIT)
 
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(TestDependencies.ANDROIDX_JUNIT)
+    androidTestImplementation(TestDependencies.ANDROIDX_ESPRESSO_CORE)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(TestDependencies.ANDROIDX_COMPOSE_UI_TEST)
 
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    debugImplementation(Dependencies.ANDROIDX_UI_TOOLING_PREVIEW)
+    debugImplementation(TestDependencies.ANDROIDX_COMPOSE_UI_TEST_MANIFEST)
 }

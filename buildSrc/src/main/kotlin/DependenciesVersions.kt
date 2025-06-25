@@ -8,6 +8,6 @@ object DependenciesVersions {
     const val ESPRESSO_CORE = "3.6.1"
     const val ACTIVITY_COMPOSE = "1.10.1"
     const val COMPOSE_UI = "1.8.2"
-    const val MATERIAL3 = ""
+    const val MATERIAL3 = "1.3.2"
 
 }
