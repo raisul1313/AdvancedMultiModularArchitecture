@@ -9,5 +9,6 @@ object DependenciesVersions {
     const val ACTIVITY_COMPOSE = "1.10.1"
     const val COMPOSE_UI = "1.8.2"
     const val MATERIAL3 = "1.3.2"
+    const val COMPOSE_BOM = "2025.04.00"
 
 }

@@ -18,8 +18,52 @@ android {
         testInstrumentationRunner = TestBuildConfig.TEST_INSTRUMENTATION_RUNNER
     }
 
-    buildTypes {
+    signingConfigs {
+        BuildSigning.Release.create(this)
+        BuildSigning.ReleaseExternalQa.create(this)
+        BuildSigning.Debug.create(this)
+    }
 
+    buildTypes {
+        getByName(BuildTypes.RELEASE) {
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            isMinifyEnabled = Build.Release.isMinifyEnabled
+            enableUnitTestCoverage = Build.Release.enableUnitTestCoverage
+            isDebuggable = Build.Release.isDebuggable
+            signingConfig = signingConfigs.getByName(SigningTypes.RELEASE)
+        }
+
+        getByName(BuildTypes.DEBUG) {
+            isMinifyEnabled = Build.Debug.isMinifyEnabled
+            enableUnitTestCoverage = Build.Debug.enableUnitTestCoverage
+            isDebuggable = Build.Debug.isDebuggable
+            versionNameSuffix = Build.Debug.versionNameSuffix
+            applicationIdSuffix = Build.Debug.applicationIdSuffix
+            signingConfig = signingConfigs.getByName(SigningTypes.DEBUG)
+        }
+
+        create(BuildTypes.RELEASE_EXTERNAL_QA) {
+            isMinifyEnabled = Build.ReleaseExternalQA.isMinifyEnabled
+            enableUnitTestCoverage = Build.ReleaseExternalQA.enableUnitTestCoverage
+            isDebuggable = Build.ReleaseExternalQA.isDebuggable
+            versionNameSuffix = Build.ReleaseExternalQA.versionNameSuffix
+            applicationIdSuffix = Build.ReleaseExternalQA.applicationIdSuffix
+            signingConfig = signingConfigs.getByName(SigningTypes.RELEASE_EXTERNAL_QA)
+        }
+
+    }
+
+    flavorDimensions.add(BuildDimensions.APP)
+    flavorDimensions.add(BuildDimensions.STORE)
+
+    productFlavors {
+        BuildFlavor.Google.create(this)
+        BuildFlavor.Huawei.create(this)
+        BuildFlavor.Driver.create(this)
+        BuildFlavor.Client.create(this)
     }
 
     compileOptions {
@@ -43,13 +87,13 @@ dependencies {
     implementation(Dependencies.ANDROIDX_UI_GRAPHICS)
     implementation(Dependencies.ANDROIDX_UI_TOOLING_PREVIEW)
     implementation(Dependencies.ANDROIDX_MATERIAL3)
-    implementation(platform(libs.androidx.compose.bom))
+    implementation(platform(Dependencies.ANDROIDX_COMPOSE_BOM))
 
-    testImplementation(TestDependencies.ANDROIDX_JUNIT)
+    testImplementation(TestDependencies.JUNIT)
 
     androidTestImplementation(TestDependencies.ANDROIDX_JUNIT)
     androidTestImplementation(TestDependencies.ANDROIDX_ESPRESSO_CORE)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(platform(Dependencies.ANDROIDX_COMPOSE_BOM))
     androidTestImplementation(TestDependencies.ANDROIDX_COMPOSE_UI_TEST)
 
     debugImplementation(Dependencies.ANDROIDX_UI_TOOLING_PREVIEW)
